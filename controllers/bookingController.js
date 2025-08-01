@@ -74,9 +74,15 @@ exports.getMyBills = catchAsync(async (req, res, next) => {
 const createBookingsCheckout = async session => {
     const tour = session.client_reference_id;
     const user = (await User.findOne({ email: session.customer_email })).id;
-    const price = session.display_items[0].price_data.unit_amount / 100;
+
+    // Fetch line items (requires expansion)
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 1 });
+
+    const price = lineItems.data[0].amount_total / 100;
+
     await Booking.create({ tour, user, price });
-}
+};
+
 
 exports.webhookCheckouts = (req, res, next) => {
     const signature = req.headers['stripe-signature'];
