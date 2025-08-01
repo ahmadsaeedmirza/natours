@@ -5,6 +5,7 @@ import { bookTour } from './stripe';
 import { signup } from './signup';
 import { forgetpass, resetpass } from './forgetPassword';
 import { postReview, updateReview } from './review';
+import { showAlert } from './alert';
 
 // DOM ELEMENTS
 const mapbox = document.getElementById('map');
@@ -28,6 +29,11 @@ const star2 = document.querySelector('.star-2');
 const star3 = document.querySelector('.star-3');
 const star4 = document.querySelector('.star-4');
 const star5 = document.querySelector('.star-5');
+const alertMsg = document.querySelector('body').dataset.alert;
+
+if (alertMsg) {
+    showAlert('success', alertMsg);
+}
 
 // DELEGATION
 if (mapbox) {

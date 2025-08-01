@@ -4,6 +4,14 @@ const Review = require('./../models/reviewModels');
 const catchAsync = require('./../utlis/catchAsync');
 const AppError = require('./../utlis/appError');
 
+exports.alerts = (req, res, next) => {
+    const { alert } = req.query;
+    if (alert === 'booking') {
+        res.locals.alert = "Booking successful";
+    }
+    next();
+}
+
 exports.getOverview = catchAsync(async (req, res, next) => {
 
     // 1) GET TOUR DATA FROM COLLECTION
