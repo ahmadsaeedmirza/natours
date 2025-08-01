@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const AppError = require('./utlis/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const bookingController = require('./controllers/bookingController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -100,6 +101,8 @@ const limiter = rateLimit({
     message: 'Too many requests from this IP, Please try again in an hour!'
 });
 app.use('/api', limiter);
+
+app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckouts);
 
 // BODY PARSER (READING DATA FROM BODY INTO REQ.BODY)
 app.use(express.json({ limit: '10kb' }));
