@@ -1,0 +1,37 @@
+extends base
+
+mixin reviewCard(review)
+    .reviews__card.review__card__my
+        .reviews__avatar
+            img.reviews__avatar-img.review__tour__img(src=`/img/tours/${review.tour.imageCover}`, alt=`${review.tour.name}`)
+            h6.reviews__user= review.tour.name
+        p.reviews__text= review.review
+        .reviews__rating
+            each star in [1, 2, 3, 4, 5]
+                svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
+                    use(xlink:href='/img/icons.svg#icon-star')   
+        .update__review.card__review(data-review-id=`${review._id}`)
+            p.update__review__text UPDATE REVIEW
+
+block content
+    h1.heading-secondary.ma-bt-md.heading__myreview My Reviews
+    .review__container
+        each review in reviews
+            +reviewCard(review)
+
+    //- Modal container (hidden by default)
+    .modal-2
+        form.modal__content-2.form--review--update 
+            .modal__heading-2 
+                span WRITE A REVIEW
+            span.modal__close-2 X   
+            .modal__stars
+                i.fa-regular.fa-star.star-1
+                i.fa-regular.fa-star.star-2
+                i.fa-regular.fa-star.star-3
+                i.fa-regular.fa-star.star-4
+                i.fa-regular.fa-star.star-5
+            .modal__writearea-2
+                textarea#review__submit-2(name="review", placeholder='Write your review here...')
+            .modal__btn-2
+                button.btn.btn--green(type='submit') Submit

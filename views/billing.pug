@@ -1,0 +1,21 @@
+extends base
+
+block content
+    if bills.length === 0
+        p.no-tour You haven't booked any tours yet
+    else 
+        .bills__container 
+            .bill__heading.bill 
+                span.bill__name Tour Name 
+                span.bill__price Price 
+                span.Bill__date Billing Date 
+            each bill, index in bills
+                - const isEven = index % 2 === 0
+                .bill(class=isEven ? 'bill--even' : 'bill--odd')
+                    span.bill__name= bill.tour.name
+                    span.bill__amount= `$ ${bill.price}`
+                    - const date = new Date(bill.createdAt);
+                    - const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                    - const formattedDate = date.toLocaleDateString('en-US', options);
+                    span.bill__date= formattedDate
+
