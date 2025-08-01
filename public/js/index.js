@@ -33,6 +33,9 @@ const alertMsg = document.querySelector('body').dataset.alert;
 
 if (alertMsg) {
     showAlert('success', alertMsg);
+    window.setTimeout(() => {
+        location.assign('/my-tours');
+    }, 5000);
 }
 
 // DELEGATION
