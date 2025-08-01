@@ -6,7 +6,7 @@ export const postReview = async (tourId, rating, review) => {
     try {
         const res = await axios({
             method: 'POST',
-            url: `http://127.0.0.1:8000/api/v1/tours/${tourId}/reviews`,
+            url: `/api/v1/tours/${tourId}/reviews`,
             data: {
                 rating,
                 review
@@ -27,14 +27,12 @@ export const updateReview = async (reviewId, rating, review) => {
     try {
         const res = await axios({
             method: 'PATCH',
-            url: `http://127.0.0.1:8000/api/v1/reviews/${reviewId}`,
+            url: `/api/v1/reviews/${reviewId}`,
             data: {
                 rating,
                 review
             }
         });
-
-        console.log(res);
 
         if (res.data.status === 'success') {
             showAlert('success', 'Review updated successfully');
