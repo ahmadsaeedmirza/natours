@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const cors = require('cors');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
@@ -27,6 +28,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 1 - Global MIDDLEWARES
+// IMPLEMENT CORS (ALLOW CROSS SERVER REQUESTS)
+app.use(cors());
+app.options('*', cors());
 
 // SET SECURITY HTTP HEADERS
 // app.use(helmet());
