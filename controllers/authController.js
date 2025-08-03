@@ -102,7 +102,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
-        return next(new AppError('The user belongin to this token no longer exists!', 401));
+        return next(new AppError('The user belonging to this token no longer exists!', 401));
     }
 
     // 4) Check if user changed password after token was issued
@@ -176,8 +176,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
             message: 'Token sent to mail'
         });
     } catch (err) {
-        user.passwordResetToken = undefined,
-            user.passwordResetExpires = undefined
+        user.passwordResetToken = undefined;
+        user.passwordResetExpires = undefined;
         await user.save({ validateBeforeSave: false });
 
         return next(new AppError('There was an error sending the mail! Plesae try agin later'), 500);
@@ -193,7 +193,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
     // 2) If token has not expired and there is user, set the new password
     if (!user) {
-        return next(new AppError('Token is invalid or has expired!'), 400);
+        return next(new AppError('Token is invalid or has expired!', 400));
     }
 
     user.password = req.body.password;
