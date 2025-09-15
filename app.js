@@ -18,6 +18,8 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoute');
 
+console.log('DB string is', process.env.DATABASE);
+
 const app = express();
 
 app.enable('trust proxy');
