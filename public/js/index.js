@@ -174,47 +174,57 @@ if (xBtn2) {
     })
 }
 
-star1.addEventListener('click', e => {
-    star1.style.color = 'gold';
-    star2.style.color = 'inherit';
-    star3.style.color = 'inherit';
-    star4.style.color = 'inherit';
-    star5.style.color = 'inherit';
-    rating = 1;
-})
+if (star1) {
+    star1.addEventListener('click', e => {
+        star1.style.color = 'gold';
+        star2.style.color = 'inherit';
+        star3.style.color = 'inherit';
+        star4.style.color = 'inherit';
+        star5.style.color = 'inherit';
+        rating = 1;
+    })
+}
 
-star2.addEventListener('click', e => {
-    star1.style.color = 'gold';
-    star2.style.color = 'gold';
-    star3.style.color = 'inherit';
-    star4.style.color = 'inherit';
-    star5.style.color = 'inherit';
-    rating = 2;
-})
+if (star2) {
+    star2.addEventListener('click', e => {
+        star1.style.color = 'gold';
+        star2.style.color = 'gold';
+        star3.style.color = 'inherit';
+        star4.style.color = 'inherit';
+        star5.style.color = 'inherit';
+        rating = 2;
+    })
+}
 
-star3.addEventListener('click', e => {
-    star1.style.color = 'gold';
-    star2.style.color = 'gold';
-    star3.style.color = 'gold';
-    star4.style.color = 'inherit';
-    star5.style.color = 'inherit';
-    rating = 3;
-})
+if (star3) {
+    star3.addEventListener('click', e => {
+        star1.style.color = 'gold';
+        star2.style.color = 'gold';
+        star3.style.color = 'gold';
+        star4.style.color = 'inherit';
+        star5.style.color = 'inherit';
+        rating = 3;
+    })
+}
+if (star4) {
+    star4.addEventListener('click', e => {
+        star1.style.color = 'gold';
+        star2.style.color = 'gold';
+        star3.style.color = 'gold';
+        star4.style.color = 'gold';
+        star5.style.color = 'inherit';
+        rating = 4;
+    })
+}
 
-star4.addEventListener('click', e => {
-    star1.style.color = 'gold';
-    star2.style.color = 'gold';
-    star3.style.color = 'gold';
-    star4.style.color = 'gold';
-    star5.style.color = 'inherit';
-    rating = 4;
-})
+if (star5) {
+    star5.addEventListener('click', e => {
+        star1.style.color = 'gold';
+        star2.style.color = 'gold';
+        star3.style.color = 'gold';
+        star4.style.color = 'gold';
+        star5.style.color = 'gold';
+        rating = 5;
+    })
 
-star5.addEventListener('click', e => {
-    star1.style.color = 'gold';
-    star2.style.color = 'gold';
-    star3.style.color = 'gold';
-    star4.style.color = 'gold';
-    star5.style.color = 'gold';
-    rating = 5;
-})
+}
