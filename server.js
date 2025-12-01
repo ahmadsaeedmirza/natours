@@ -12,8 +12,11 @@ const app = require('./app');
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
+// 👇 The change is right here:
 mongoose
-    .connect(DB)
+    .connect(DB, {
+        bufferTimeoutMS: 15000, // Increased from the default 10000ms (10 seconds) to 15000ms (15 seconds)
+    })
     .then(() => console.log("Database connection is successfull!"));
 
 const port = process.env.PORT;
