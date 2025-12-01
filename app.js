@@ -18,11 +18,12 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoute');
 
-console.log('DB string is', process.env.DATABASE);
+// console.log('DB string is', process.env.DATABASE);
 
 const app = express();
 
-app.enable('trust proxy');
+// app.enable('trust proxy');
+app.set('trust proxy', 1);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -97,11 +98,19 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // LIMIT REQUESTS FROM SAME IP
+// const limiter = rateLimit({
+//     max: 100,
+//     windowMs: 60 * 60 * 1000,
+//     message: 'Too many requests from this IP, Please try again in an hour!'
+// });
+
 const limiter = rateLimit({
     max: 100,
     windowMs: 60 * 60 * 1000,
-    message: 'Too many requests from this IP, Please try again in an hour!'
+    message: 'Too many requests from this IP, Please try again in an hour!',
+    keyGenerator: (req) => req.ip
 });
+
 app.use('/api', limiter);
 
 app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckouts);
