@@ -3,38 +3,40 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 
 process.on('uncaughtException', err => {
-    console.log(err.name, err.message);
-    console.log("UNCAUGHT EXCEPTION! SHUTTING DOWN.....");
-    process.exit(1);
+  console.log(err.name, err.message);
+  console.log("UNCAUGHT EXCEPTION! SHUTTING DOWN.....");
+  process.exit(1);
 });
 
 const app = require('./app');
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
-// 👇 The change is right here:
+// NEW, CLEAN, SUPPORTED VERSION
 mongoose
-    .connect(DB, {
-        bufferTimeoutMS: 15000, // Increased from the default 10000ms (10 seconds) to 15000ms (15 seconds)
-    })
-    .then(() => console.log("Database connection is successfull!"));
+  .connect(DB)
+  .then(() => console.log("Database connection is successful!"))
+  .catch(err => {
+    console.error("DB Connection Error:", err);
+    process.exit(1);
+  });
 
 const port = process.env.PORT;
 const server = app.listen(port, () => {
-    console.log(`App running on port ${port}`);
+  console.log(`App running on port ${port}`);
 });
 
 process.on('unhandledRejection', err => {
-    console.log(err.name, err.message);
-    console.log("UNHANDLED REJECTION! SHUTTING DOWN.....");
-    server.close(() => {
-        process.exit(1);
-    });
+  console.log(err.name, err.message);
+  console.log("UNHANDLED REJECTION! SHUTTING DOWN.....");
+  server.close(() => {
+    process.exit(1);
+  });
 });
 
 process.on('SIGTERM', () => {
-    console.log('SIGTERM REVIEVED. Shutting down gracufully...');
-    server.close(() => {
-        console.log('Process terminated...!!!');
-    })
+  console.log('SIGTERM RECEIVED. Shutting down gracefully...');
+  server.close(() => {
+    console.log('Process terminated...!!!');
+  });
 });

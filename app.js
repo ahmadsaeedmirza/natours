@@ -105,11 +105,13 @@ if (process.env.NODE_ENV === 'development') {
 // });
 
 const limiter = rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
-    message: 'Too many requests from this IP, Please try again in an hour!',
-    keyGenerator: (req) => req.ip
+  windowMs: 60 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req, res) => req.ip, // Safe for IPv4/IPv6
 });
+
 
 app.use('/api', limiter);
 
